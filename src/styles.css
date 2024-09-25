@@ -57,10 +57,27 @@ p {
 }
 
 /* Current Activity Section Styling */
+.container__current_activity_title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .container__current_activity {
   display: flex;
   flex-direction: column;
   row-gap: 24px;
+}
+
+button.actions-button {
+  padding: 10px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  border: none;
+  transition: background-color 0.3s ease;
+  background-color: blue;
+  color: #fff;
 }
 
 ul {
