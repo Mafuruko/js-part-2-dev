@@ -1,6 +1,7 @@
 const timers = {};
 const start = {};
 const timeelapsed = {};
+let activityCount = 3; // Starting with 3 since there are already 3 activities
 
 // Add event listeners for start/stop buttons
 document.querySelectorAll(".start").forEach((button) => {
@@ -16,6 +17,41 @@ document.querySelectorAll(".stop").forEach((button) => {
     stopTimer(activityid);
   });
 });
+
+// Event listener for Add Activity button
+document.getElementById("addActivity").addEventListener("click", addNewActivity);
+
+// Function to dynamically add a new activity card
+function addNewActivity() {
+  activityCount++;
+  
+  // Create a new list item for the new activity
+  const li = document.createElement("li");
+  li.innerHTML = `
+    <div class="activity-info" data-activity="${activityCount}">
+      <h5>Activity ${activityCount}</h5>
+      <p id="currentTime-${activityCount}">00:00.00</p>
+      <div class="buttons">
+        <button class="stop" data-activity="${activityCount}">Stop</button>
+        <button class="start" data-activity="${activityCount}">Start</button>
+      </div>
+      <p class="target-time">Target time: 01:10.28</p>
+    </div>
+  `;
+
+  document.querySelector(".container__current_activity ul").appendChild(li);
+
+  // Add event listeners to the new start/stop buttons
+  li.querySelector(".start").addEventListener("click", (e) => {
+    const activityid = e.target.getAttribute("data-activity");
+    startTimer(activityid);
+  });
+
+  li.querySelector(".stop").addEventListener("click", (e) => {
+    const activityid = e.target.getAttribute("data-activity");
+    stopTimer(activityid);
+  });
+}
 
 // Start the timer for a specific activity
 function startTimer(activityid) {
@@ -59,7 +95,7 @@ function stopTimer(activityid) {
     document.getElementById(`currentTime-${activityid}`).textContent =
       "00:00.00";
   }
-}
+} 
 
 // Update the displayed time for a specific activity
 function updateTime(activityid) {
